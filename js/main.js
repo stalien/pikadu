@@ -50,9 +50,10 @@ const setUsers = {
   logOut() {
     console.log('logOut');
   },
-  signUp(email, password, handler) {    
-
-    if (!this.getUser(email)) {
+  signUp(email, password, handler) {
+    
+    if (!this.validateEmail(email)) {
+    }else if (!this.getUser(email)) {
       const user = {email, password, displayName: email.slice(0, email.indexOf('@'))};
       listUsers.push(user);
       this.authorizedUser(user);
@@ -66,6 +67,13 @@ const setUsers = {
   },
   authorizedUser(user) {
     this.user = user;
+  },
+  validateEmail(email) {
+    const reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+    if(reg.test(email) == false) {
+      alert('Введите корректный e-mail');
+      return false;
+    }else return true;
   }
 }; 
 
